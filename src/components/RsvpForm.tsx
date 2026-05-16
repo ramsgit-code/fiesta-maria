@@ -70,7 +70,7 @@ export default function RsvpForm() {
     <section>
       <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-2">Asistencia</p>
       <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a3a6b] mb-1">¿Vienes a la fiesta?</h2>
-      <p className="text-gray-500 text-sm mb-6">Confirma tu asistencia y te enviaremos todos los detalles por email.</p>
+      <p className="text-gray-500 text-sm mb-6">Confirma tu asistencia rellenando el formulario.</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
