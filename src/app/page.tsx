@@ -125,25 +125,13 @@ export default function Home() {
         <p className="text-gray-600 mb-4 text-sm">
           La fiesta se celebra en la finca familiar en <strong>Gemuño, Ávila</strong>. Municipio a pocos kilómetros de la capital abulense.
         </p>
-        <div className="rounded-xl overflow-hidden border border-gray-200 h-64">
-          <iframe
-            title="Mapa de Gemuño"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11960.5!2d-4.75!3d40.72!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3aea08c73edd49%3A0x4052c4d79f1f6f0!2sGemu%C3%B1o%2C%20%C3%81vila!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
         <a
-          href="https://maps.google.com/?q=Gemuño,+Ávila"
+          href="https://maps.app.goo.gl/XSDpEvBDrP2LtbAY7"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-[#1a3a6b] hover:text-[#c9a84c] transition-colors"
+          className="flex items-center justify-center gap-3 w-full rounded-xl border-2 border-[#1a3a6b] bg-[#1a3a6b] text-white font-semibold py-4 hover:bg-[#c9a84c] hover:border-[#c9a84c] transition-colors text-base"
         >
-          <span>🗺️</span> Abrir en Google Maps
+          <span>🗺️</span> Abrir ubicación en Google Maps
         </a>
       </section>
 
