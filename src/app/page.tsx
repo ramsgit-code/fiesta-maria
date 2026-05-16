@@ -1,5 +1,6 @@
 import ContadorInvitados from '@/components/ContadorInvitados'
 import RsvpForm from '@/components/RsvpForm'
+import VideoFinca from '@/components/VideoFinca'
 
 const agenda = [
   { emoji: '🚗', hora: '12–13h', titulo: 'Llegada de invitados' },
@@ -72,9 +73,7 @@ export default function Home() {
         <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-2">La finca</p>
         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a3a6b] mb-4">Vista desde el aire</h2>
         <div className="rounded-2xl overflow-hidden shadow-lg">
-          <video controls autoPlay muted loop playsInline className="w-full" style={{ maxHeight: '420px', objectFit: 'cover' }}>
-            <source src="https://ytxpsbophwkqcsraptuy.supabase.co/storage/v1/object/public/media/VideoFincaMery_web.mp4" type="video/mp4" />
-          </video>
+          <VideoFinca />
         </div>
       </section>
 
