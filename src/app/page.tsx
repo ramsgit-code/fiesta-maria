@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-10 sm:space-y-14">
 
-      {/* Hero compacto */}
+      {/* Hero */}
       <section className="text-center">
         <h1 className="font-serif text-4xl sm:text-6xl font-bold text-[#1a3a6b] leading-tight mb-1">
           La Jura de María
@@ -63,6 +63,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* RSVP — debajo del vídeo */}
+      <div data-section="rsvp">
+        <RsvpForm />
+      </div>
+
       {/* Galería */}
       <section>
         <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-2">Galería</p>
@@ -76,37 +81,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Agenda + Menú en grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+      {/* Programa + Menú compactos en la misma fila */}
+      <div className="grid grid-cols-2 gap-4">
+        <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
           <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-1">Programa</p>
-          <h2 className="font-serif text-xl font-bold text-[#1a3a6b] mb-4">El día</h2>
-          <div className="space-y-3">
+          <h2 className="font-serif text-lg font-bold text-[#1a3a6b] mb-3">El día</h2>
+          <div className="space-y-2">
             {agenda.map((item, i) => (
-              <div key={i} className="flex gap-3 items-start">
-                <div className="flex flex-col items-center pt-1.5">
-                  <div className="w-2 h-2 rounded-full bg-[#c9a84c] flex-shrink-0" />
-                  {i < agenda.length - 1 && <div className="w-px flex-1 bg-gray-100 mt-1 min-h-[12px]" />}
-                </div>
-                <div className="pb-1">
+              <div key={i} className="flex gap-2 items-start">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] flex-shrink-0 mt-1.5" />
+                <div>
                   {item.hora && <p className="text-[#c9a84c] text-xs font-semibold">{item.hora}</p>}
-                  <p className="font-medium text-gray-800 text-sm">{item.titulo}</p>
+                  <p className="text-xs text-gray-700">{item.titulo}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+        <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
           <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-1">Gastronomía</p>
-          <h2 className="font-serif text-xl font-bold text-[#1a3a6b] mb-4">El menú</h2>
-          <div className="space-y-3">
+          <h2 className="font-serif text-lg font-bold text-[#1a3a6b] mb-3">El menú</h2>
+          <div className="space-y-2">
             {menu.map((cat) => (
-              <div key={cat.categoria} className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-[#c9a84c] flex-shrink-0 mt-1.5" />
+              <div key={cat.categoria} className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] flex-shrink-0 mt-1.5" />
                 <div>
-                  <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold">{cat.categoria}</p>
-                  <p className="text-sm text-gray-700">{cat.item}</p>
+                  <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold leading-tight">{cat.categoria}</p>
+                  <p className="text-xs text-gray-700">{cat.item}</p>
                 </div>
               </div>
             ))}
@@ -114,7 +116,7 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Info + Mapa en grid */}
+      {/* Info */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="text-center">
           <div className="w-6 h-px bg-[#c9a84c] mx-auto mb-3" />
@@ -126,7 +128,7 @@ export default function Home() {
           <h3 className="font-semibold text-[#1a3a6b] text-xs uppercase tracking-wide mb-1">Aparcamiento</h3>
           <p className="text-xs text-gray-500">Disponible en la finca. Compartir coche si podéis.</p>
         </div>
-        <div className="text-center sm:col-span-1">
+        <div className="text-center">
           <div className="w-6 h-px bg-[#c9a84c] mx-auto mb-3" />
           <h3 className="font-semibold text-[#1a3a6b] text-xs uppercase tracking-wide mb-1">Ubicación</h3>
           <a href="https://maps.app.goo.gl/XSDpEvBDrP2LtbAY7" target="_blank" rel="noopener noreferrer"
@@ -135,19 +137,6 @@ export default function Home() {
           </a>
         </div>
       </div>
-
-      {/* Separador */}
-      <div className="flex items-center gap-4">
-        <div className="flex-1 h-px bg-gray-200" />
-        <div className="w-1.5 h-1.5 rounded-full bg-[#c9a84c]" />
-        <div className="flex-1 h-px bg-gray-200" />
-      </div>
-
-      {/* RSVP */}
-      <div data-section="rsvp">
-        <RsvpForm />
-      </div>
-
 
     </div>
   )
