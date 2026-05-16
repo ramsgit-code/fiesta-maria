@@ -144,7 +144,7 @@ export default function Home() {
       </div>
 
       {/* RSVP */}
-      <div id="rsvp">
+      <div data-section="rsvp">
         <RsvpForm />
       </div>
 
