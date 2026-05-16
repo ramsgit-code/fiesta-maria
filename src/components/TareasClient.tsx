@@ -4,17 +4,11 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import type { Tarea } from '@/types/database'
 
-const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || '9999'
-
 export default function TareasClient() {
   const [tareas, setTareas] = useState<Tarea[]>([])
   const [loading, setLoading] = useState(true)
-  const [adminMode, setAdminMode] = useState(false)
-  const [pinInput, setPinInput] = useState('')
-  const [pinError, setPinError] = useState(false)
-  const [showPinModal, setShowPinModal] = useState(false)
   const [modalAbierto, setModalAbierto] = useState(false)
-  const [nuevaTarea, setNuevaTarea] = useState({ titulo: '', descripcion: '', asignado_a: '', email_asignado: '' })
+  const [nuevaTarea, setNuevaTarea] = useState({ titulo: '', descripcion: '', asignado_a: '' })
   const [guardando, setGuardando] = useState(false)
   const [filtro, setFiltro] = useState<'todas' | 'pendientes' | 'hechas'>('todas')
   const [toggling, setToggling] = useState<string | null>(null)
@@ -30,32 +24,12 @@ export default function TareasClient() {
 
   useEffect(() => {
     cargarTareas()
-    const admin = sessionStorage.getItem('admin_mode')
-    if (admin === 'true') setAdminMode(true)
     const channel = supabase
       .channel('tareas-cambios')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'tareas' }, cargarTareas)
       .subscribe()
     return () => { supabase.removeChannel(channel) }
   }, [])
-
-  const verificarPin = () => {
-    if (pinInput === ADMIN_PIN) {
-      setAdminMode(true)
-      sessionStorage.setItem('admin_mode', 'true')
-      setShowPinModal(false)
-      setPinInput('')
-      setPinError(false)
-    } else {
-      setPinError(true)
-      setPinInput('')
-    }
-  }
-
-  const salirAdmin = () => {
-    setAdminMode(false)
-    sessionStorage.removeItem('admin_mode')
-  }
 
   const toggleCompletada = async (tarea: Tarea) => {
     setToggling(tarea.id)
@@ -81,7 +55,7 @@ export default function TareasClient() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(nuevaTarea),
     })
-    setNuevaTarea({ titulo: '', descripcion: '', asignado_a: '', email_asignado: '' })
+    setNuevaTarea({ titulo: '', descripcion: '', asignado_a: '' })
     setModalAbierto(false)
     setGuardando(false)
   }
@@ -149,33 +123,12 @@ export default function TareasClient() {
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-2">
-          {adminMode ? (
-            <>
-              <button
-                onClick={() => setModalAbierto(true)}
-                className="bg-[#c9a84c] hover:bg-[#b8973b] text-white font-semibold py-2 px-4 rounded-full shadow transition-all flex items-center gap-1.5 text-sm"
-              >
-                + Nueva tarea
-              </button>
-              <button
-                onClick={salirAdmin}
-                className="text-xs text-gray-400 hover:text-gray-600 border border-gray-200 px-3 py-2 rounded-full transition-all"
-                title="Salir del modo admin"
-              >
-                🔓 Salir
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={() => setShowPinModal(true)}
-              className="text-xs text-gray-400 hover:text-gray-600 border border-gray-200 px-3 py-2 rounded-full transition-all"
-              title="Acceso organizadores"
-            >
-              🔒 Gestionar
-            </button>
-          )}
-        </div>
+        <button
+          onClick={() => setModalAbierto(true)}
+          className="bg-[#c9a84c] hover:bg-[#b8973b] text-white font-semibold py-2 px-4 rounded-full shadow transition-all flex items-center gap-1.5 text-sm"
+        >
+          + Nueva tarea
+        </button>
       </div>
 
       {/* Lista de tareas */}
@@ -212,19 +165,10 @@ export default function TareasClient() {
                 {tarea.descripcion && (
                   <p className="text-sm text-gray-500 mt-0.5">{tarea.descripcion}</p>
                 )}
-                {(tarea.asignado_a || tarea.email_asignado) && (
-                  <div className="mt-2 flex flex-wrap items-center gap-2">
-                    {tarea.asignado_a && (
-                      <span className="text-xs bg-blue-50 text-[#1a3a6b] font-medium px-2.5 py-0.5 rounded-full">
-                        👤 {tarea.asignado_a}
-                      </span>
-                    )}
-                    {tarea.email_asignado && (
-                      <span className="text-xs bg-gray-50 text-gray-500 px-2.5 py-0.5 rounded-full">
-                        ✉️ {tarea.email_asignado}
-                      </span>
-                    )}
-                  </div>
+                {tarea.asignado_a && (
+                  <span className="mt-2 inline-block text-xs bg-blue-50 text-[#1a3a6b] font-medium px-2.5 py-0.5 rounded-full">
+                    👤 {tarea.asignado_a}
+                  </span>
                 )}
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
@@ -233,62 +177,21 @@ export default function TareasClient() {
                 }`}>
                   {tarea.completada ? 'Hecho' : 'Pendiente'}
                 </span>
-                {adminMode && (
-                  <button
-                    onClick={() => eliminarTarea(tarea.id)}
-                    className="text-gray-300 hover:text-red-400 transition-colors text-xl leading-none"
-                    title="Eliminar"
-                  >
-                    ×
-                  </button>
-                )}
+                <button
+                  onClick={() => eliminarTarea(tarea.id)}
+                  className="text-gray-300 hover:text-red-400 transition-colors text-xl leading-none"
+                  title="Eliminar"
+                >
+                  ×
+                </button>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* Modal PIN */}
-      {showPinModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xs p-8 text-center">
-            <div className="text-3xl mb-3">🔒</div>
-            <h3 className="font-serif text-xl font-bold text-[#1a3a6b] mb-1">Acceso organizadores</h3>
-            <p className="text-gray-400 text-sm mb-6">Introduce el PIN para gestionar tareas</p>
-            <input
-              type="password"
-              inputMode="numeric"
-              maxLength={4}
-              placeholder="····"
-              autoFocus
-              value={pinInput}
-              onChange={(e) => { setPinInput(e.target.value); setPinError(false) }}
-              onKeyDown={(e) => e.key === 'Enter' && verificarPin()}
-              className={`w-full text-center text-2xl tracking-[0.5em] px-4 py-3 border rounded-xl focus:outline-none focus:border-[#1a3a6b] mb-2 ${
-                pinError ? 'border-red-400 bg-red-50' : 'border-gray-200'
-              }`}
-            />
-            {pinError && <p className="text-red-400 text-xs mb-3">PIN incorrecto</p>}
-            <div className="flex gap-3 mt-4">
-              <button
-                onClick={() => { setShowPinModal(false); setPinInput(''); setPinError(false) }}
-                className="flex-1 py-2.5 rounded-full border border-gray-200 text-gray-500 text-sm hover:bg-gray-50"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={verificarPin}
-                className="flex-1 py-2.5 rounded-full bg-[#1a3a6b] text-white font-semibold text-sm hover:bg-[#0f2347]"
-              >
-                Entrar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Modal nueva tarea (solo admin) */}
-      {modalAbierto && adminMode && (
+      {/* Modal nueva tarea */}
+      {modalAbierto && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
             <div className="p-6 border-b border-gray-100">
@@ -317,33 +220,16 @@ export default function TareasClient() {
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] text-gray-800 resize-none text-sm"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-widest">Nombre</label>
-                  <input
-                    type="text"
-                    placeholder="Nombre responsable"
-                    value={nuevaTarea.asignado_a}
-                    onChange={(e) => setNuevaTarea((f) => ({ ...f, asignado_a: e.target.value }))}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] text-gray-800 text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-widest">Email</label>
-                  <input
-                    type="email"
-                    placeholder="para notificarle"
-                    value={nuevaTarea.email_asignado}
-                    onChange={(e) => setNuevaTarea((f) => ({ ...f, email_asignado: e.target.value }))}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] text-gray-800 text-sm"
-                  />
-                </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-widest">Responsable (opcional)</label>
+                <input
+                  type="text"
+                  placeholder="Nombre del responsable"
+                  value={nuevaTarea.asignado_a}
+                  onChange={(e) => setNuevaTarea((f) => ({ ...f, asignado_a: e.target.value }))}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] text-gray-800 text-sm"
+                />
               </div>
-              {nuevaTarea.email_asignado && (
-                <p className="text-xs text-[#c9a84c] bg-amber-50 px-3 py-2 rounded-lg">
-                  📧 Se enviará un email a {nuevaTarea.email_asignado} con los detalles
-                </p>
-              )}
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
