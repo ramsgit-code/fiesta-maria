@@ -66,6 +66,7 @@ export type Database = {
           confirmado: boolean
           num_acompanantes: number
           comentario: string | null
+          bebida: string | null
           created_at: string
         }
         Insert: {
@@ -76,6 +77,7 @@ export type Database = {
           confirmado?: boolean
           num_acompanantes?: number
           comentario?: string | null
+          bebida?: string | null
           created_at?: string
         }
         Update: {
@@ -86,6 +88,7 @@ export type Database = {
           confirmado?: boolean
           num_acompanantes?: number
           comentario?: string | null
+          bebida?: string | null
           created_at?: string
         }
         Relationships: []

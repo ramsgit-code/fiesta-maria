@@ -19,7 +19,7 @@ export default function InvitadosClient() {
   const [nombreConfirmar, setNombreConfirmar] = useState('')
   const [resultadoBusqueda, setResultadoBusqueda] = useState<Invitado[]>([])
   const [invitadoEditando, setInvitadoEditando] = useState<Invitado | null>(null)
-  const [editForm, setEditForm] = useState({ nombre: '', email: '', telefono: '', num_acompanantes: 0, comentario: '', confirmado: false })
+  const [editForm, setEditForm] = useState({ nombre: '', email: '', telefono: '', num_acompanantes: 0, comentario: '', bebida: '', confirmado: false })
   const [guardandoEdit, setGuardandoEdit] = useState(false)
 
   const cargarInvitados = async () => {
@@ -81,6 +81,7 @@ export default function InvitadosClient() {
       telefono: inv.telefono || '',
       num_acompanantes: inv.num_acompanantes,
       comentario: inv.comentario || '',
+      bebida: inv.bebida || '',
       confirmado: inv.confirmado,
     })
   }
@@ -95,6 +96,7 @@ export default function InvitadosClient() {
       telefono: editForm.telefono.trim() || null,
       num_acompanantes: editForm.num_acompanantes,
       comentario: editForm.comentario.trim() || null,
+      bebida: editForm.bebida.trim() || null,
       confirmado: editForm.confirmado,
     }).eq('id', invitadoEditando.id)
     setInvitadoEditando(null)
@@ -228,9 +230,10 @@ export default function InvitadosClient() {
                     </span>
                   )}
                 </div>
-                <div className="flex gap-3 text-xs text-gray-400 mt-0.5">
+                <div className="flex flex-wrap gap-3 text-xs text-gray-400 mt-0.5">
                   {inv.email && <span>✉️ {inv.email}</span>}
                   {inv.telefono && <span>📱 {inv.telefono}</span>}
+                  {inv.bebida && <span>🥃 {inv.bebida}</span>}
                 </div>
                 {inv.comentario && (
                   <p className="text-xs text-gray-500 mt-1 italic">"{inv.comentario}"</p>
@@ -410,6 +413,24 @@ export default function InvitadosClient() {
                   onChange={(e) => setEditForm((f) => ({ ...f, num_acompanantes: parseInt(e.target.value) || 0 }))}
                   className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
                 />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Bebida</label>
+                <select
+                  value={editForm.bebida}
+                  onChange={(e) => setEditForm((f) => ({ ...f, bebida: e.target.value }))}
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
+                >
+                  <option value="">Sin especificar</option>
+                  <option value="cerveza">Cerveza</option>
+                  <option value="vino">Vino</option>
+                  <option value="whisky">Whisky</option>
+                  <option value="ron">Ron</option>
+                  <option value="ginebra">Ginebra</option>
+                  <option value="vodka">Vodka</option>
+                  <option value="refresco">Refresco / sin alcohol</option>
+                  <option value="de_todo">De todo un poco</option>
+                </select>
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Notas</label>
