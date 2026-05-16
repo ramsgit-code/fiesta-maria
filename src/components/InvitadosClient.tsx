@@ -18,6 +18,9 @@ export default function InvitadosClient() {
   const [guardando, setGuardando] = useState(false)
   const [nombreConfirmar, setNombreConfirmar] = useState('')
   const [resultadoBusqueda, setResultadoBusqueda] = useState<Invitado[]>([])
+  const [invitadoEditando, setInvitadoEditando] = useState<Invitado | null>(null)
+  const [editForm, setEditForm] = useState({ nombre: '', email: '', telefono: '', num_acompanantes: 0, comentario: '', confirmado: false })
+  const [guardandoEdit, setGuardandoEdit] = useState(false)
 
   const cargarInvitados = async () => {
     const { data } = await supabase
@@ -68,6 +71,34 @@ export default function InvitadosClient() {
   const eliminarInvitado = async (id: string) => {
     if (!confirm('¿Eliminar este invitado?')) return
     await supabase.from('invitados').delete().eq('id', id)
+  }
+
+  const abrirEditar = (inv: Invitado) => {
+    setInvitadoEditando(inv)
+    setEditForm({
+      nombre: inv.nombre,
+      email: inv.email || '',
+      telefono: inv.telefono || '',
+      num_acompanantes: inv.num_acompanantes,
+      comentario: inv.comentario || '',
+      confirmado: inv.confirmado,
+    })
+  }
+
+  const guardarEdicion = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!invitadoEditando) return
+    setGuardandoEdit(true)
+    await supabase.from('invitados').update({
+      nombre: editForm.nombre.trim(),
+      email: editForm.email.trim() || null,
+      telefono: editForm.telefono.trim() || null,
+      num_acompanantes: editForm.num_acompanantes,
+      comentario: editForm.comentario.trim() || null,
+      confirmado: editForm.confirmado,
+    }).eq('id', invitadoEditando.id)
+    setInvitadoEditando(null)
+    setGuardandoEdit(false)
   }
 
   const buscarParaConfirmar = () => {
@@ -217,6 +248,13 @@ export default function InvitadosClient() {
                   {inv.confirmado ? '✅ Confirmado' : '⏳ Pendiente'}
                 </button>
                 <button
+                  onClick={() => abrirEditar(inv)}
+                  className="text-gray-300 hover:text-[#1a3a6b] transition-colors text-sm"
+                  title="Editar"
+                >
+                  ✏️
+                </button>
+                <button
                   onClick={() => eliminarInvitado(inv.id)}
                   className="text-gray-300 hover:text-red-400 transition-colors text-xl leading-none"
                   title="Eliminar"
@@ -316,6 +354,98 @@ export default function InvitadosClient() {
                   className="flex-1 bg-[#1a3a6b] hover:bg-[#0f2347] disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg transition-all shadow"
                 >
                   {guardando ? 'Guardando...' : 'Añadir'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal editar invitado */}
+      {invitadoEditando && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-100 sticky top-0 bg-white">
+              <h3 className="text-xl font-bold text-[#1a3a6b]">Editar invitado</h3>
+            </div>
+            <form onSubmit={guardarEdicion} className="p-6 space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Nombre *</label>
+                <input
+                  type="text"
+                  required
+                  autoFocus
+                  value={editForm.nombre}
+                  onChange={(e) => setEditForm((f) => ({ ...f, nombre: e.target.value }))}
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Email</label>
+                  <input
+                    type="email"
+                    value={editForm.email}
+                    onChange={(e) => setEditForm((f) => ({ ...f, email: e.target.value }))}
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Teléfono</label>
+                  <input
+                    type="tel"
+                    value={editForm.telefono}
+                    onChange={(e) => setEditForm((f) => ({ ...f, telefono: e.target.value }))}
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Acompañantes adicionales</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={20}
+                  value={editForm.num_acompanantes}
+                  onChange={(e) => setEditForm((f) => ({ ...f, num_acompanantes: parseInt(e.target.value) || 0 }))}
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Notas</label>
+                <textarea
+                  rows={2}
+                  value={editForm.comentario}
+                  onChange={(e) => setEditForm((f) => ({ ...f, comentario: e.target.value }))}
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800 resize-none"
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setEditForm((f) => ({ ...f, confirmado: !f.confirmado }))}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                    editForm.confirmado ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-600'
+                  }`}
+                >
+                  {editForm.confirmado ? '✅ Confirmado' : '⏳ Pendiente'}
+                </button>
+                <span className="text-xs text-gray-400">Pulsa para cambiar</span>
+              </div>
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setInvitadoEditando(null)}
+                  className="flex-1 py-2.5 rounded-lg border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-all"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={guardandoEdit}
+                  className="flex-1 bg-[#1a3a6b] hover:bg-[#0f2347] disabled:opacity-60 text-white font-semibold py-2.5 rounded-lg transition-all shadow"
+                >
+                  {guardandoEdit ? 'Guardando...' : 'Guardar cambios'}
                 </button>
               </div>
             </form>
