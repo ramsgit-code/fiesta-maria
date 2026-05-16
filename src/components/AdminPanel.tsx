@@ -69,8 +69,8 @@ export default function AdminPanel() {
       </div>
 
       <div className="mt-8 text-center">
-        <Link href="/" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
-          ← Volver a la fiesta
+        <Link href="/" className="inline-block bg-[#1a3a6b] hover:bg-[#0f2347] text-white font-semibold py-3 px-8 rounded-full transition-all text-sm shadow">
+          ← Ir a la página principal
         </Link>
       </div>
     </div>
