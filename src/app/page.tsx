@@ -28,12 +28,10 @@ export default function Home() {
 
       {/* Hero compacto */}
       <section className="text-center">
-        <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-4">
-          Policía Nacional Escala Básica · Promoción 40
-        </p>
-        <h1 className="font-serif text-4xl sm:text-6xl font-bold text-[#1a3a6b] leading-tight mb-4">
+        <h1 className="font-serif text-4xl sm:text-6xl font-bold text-[#1a3a6b] leading-tight mb-1">
           La Jura de María
         </h1>
+        <p className="text-gray-400 text-sm mb-4">Promoción 40 · Policía Nacional Escala Básica</p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-8 text-sm mb-6">
           <div className="flex items-center gap-2 text-gray-600">
             <span className="text-[#c9a84c]">📅</span>
