@@ -1,5 +1,6 @@
 import ComentarioForm from '@/components/ComentarioForm'
 import ContadorInvitados from '@/components/ContadorInvitados'
+import RsvpForm from '@/components/RsvpForm'
 
 const agenda = [
   { hora: '12–13h', titulo: 'Llegada de invitados' },
@@ -141,7 +142,17 @@ export default function Home() {
         <div className="flex-1 h-px bg-gray-200" />
       </div>
 
-      {/* Formulario */}
+      {/* RSVP */}
+      <RsvpForm />
+
+      {/* Separador */}
+      <div className="flex items-center gap-4">
+        <div className="flex-1 h-px bg-gray-200" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[#c9a84c]" />
+        <div className="flex-1 h-px bg-gray-200" />
+      </div>
+
+      {/* Formulario mensajes */}
       <ComentarioForm />
 
     </div>
