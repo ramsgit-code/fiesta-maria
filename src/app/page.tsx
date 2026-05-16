@@ -142,8 +142,22 @@ export default function Home() {
         <div className="flex-1 h-px bg-gray-200" />
       </div>
 
+      {/* Llamada a la acción */}
+      <div className="text-center bg-[#1a3a6b] rounded-3xl px-6 py-10">
+        <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-3">No te lo pierdas</p>
+        <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-3">¿Vienes a la fiesta?</h2>
+        <p className="text-blue-200 text-sm mb-6 max-w-sm mx-auto">Regístrate abajo para confirmar tu asistencia. Solo tarda un minuto.</p>
+        <div className="flex justify-center">
+          <a href="#rsvp" className="bg-[#c9a84c] hover:bg-[#b8973b] text-white font-semibold py-3.5 px-10 rounded-full transition-all text-sm tracking-wide shadow-lg">
+            Confirmar asistencia ↓
+          </a>
+        </div>
+      </div>
+
       {/* RSVP */}
-      <RsvpForm />
+      <div id="rsvp">
+        <RsvpForm />
+      </div>
 
 
     </div>
