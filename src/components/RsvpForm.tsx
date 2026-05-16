@@ -27,7 +27,7 @@ function SelectBebida({ value, onChange }: { value: string; onChange: (v: string
 }
 
 export default function RsvpForm() {
-  const [form, setForm] = useState({ nombre: '', email: '', num_acompanantes: 0, comentario: '', bebida: '' })
+  const [form, setForm] = useState({ nombre: '', num_acompanantes: 0, comentario: '', bebida: '' })
   const [bebidasAcomp, setBebidasAcomp] = useState<string[]>([])
   const [estado, setEstado] = useState<'idle' | 'enviando' | 'ok' | 'duplicado' | 'error'>('idle')
 
@@ -73,29 +73,16 @@ export default function RsvpForm() {
       <p className="text-gray-500 text-sm mb-6">Confirma tu asistencia y te enviaremos todos los detalles por email.</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-widest">Nombre *</label>
-            <input
-              type="text"
-              required
-              placeholder="Tu nombre completo"
-              value={form.nombre}
-              onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] transition-colors bg-white text-gray-800 placeholder-gray-300 text-sm"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-widest">Email *</label>
-            <input
-              type="email"
-              required
-              placeholder="tu@email.com"
-              value={form.email}
-              onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] transition-colors bg-white text-gray-800 placeholder-gray-300 text-sm"
-            />
-          </div>
+        <div>
+          <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-widest">Nombre *</label>
+          <input
+            type="text"
+            required
+            placeholder="Tu nombre completo"
+            value={form.nombre}
+            onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
+            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] transition-colors bg-white text-gray-800 placeholder-gray-300 text-sm"
+          />
         </div>
 
         <div>
