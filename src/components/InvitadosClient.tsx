@@ -13,8 +13,9 @@ export default function InvitadosClient() {
   const [filtro, setFiltro] = useState<'todos' | 'confirmados' | 'pendientes'>('todos')
 
   const [nuevoInvitado, setNuevoInvitado] = useState({
-    nombre: '', email: '', telefono: '', num_acompanantes: 0, comentario: '',
+    nombre: '', email: '', telefono: '', num_acompanantes: 0, comentario: '', bebida: '',
   })
+  const [nuevaBebidasAcomp, setNuevaBebidasAcomp] = useState<string[]>([])
   const [guardando, setGuardando] = useState(false)
   const [nombreConfirmar, setNombreConfirmar] = useState('')
   const [resultadoBusqueda, setResultadoBusqueda] = useState<Invitado[]>([])
@@ -45,6 +46,15 @@ export default function InvitadosClient() {
     return () => { supabase.removeChannel(channel) }
   }, [])
 
+  const setNumAcomp = (n: number) => {
+    setNuevoInvitado((f) => ({ ...f, num_acompanantes: n }))
+    setNuevaBebidasAcomp((prev) => {
+      const arr = [...prev]
+      while (arr.length < n) arr.push('')
+      return arr.slice(0, n)
+    })
+  }
+
   const añadirInvitado = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!nuevoInvitado.nombre.trim()) return
@@ -55,9 +65,12 @@ export default function InvitadosClient() {
       telefono: nuevoInvitado.telefono.trim() || null,
       num_acompanantes: nuevoInvitado.num_acompanantes,
       comentario: nuevoInvitado.comentario.trim() || null,
-      confirmado: false,
+      bebida: nuevoInvitado.bebida.trim() || null,
+      bebidas_acompanantes: nuevaBebidasAcomp.length ? nuevaBebidasAcomp : null,
+      confirmado: true,
     })
-    setNuevoInvitado({ nombre: '', email: '', telefono: '', num_acompanantes: 0, comentario: '' })
+    setNuevoInvitado({ nombre: '', email: '', telefono: '', num_acompanantes: 0, comentario: '', bebida: '' })
+    setNuevaBebidasAcomp([])
     setModalAnadir(false)
     setGuardando(false)
   }
@@ -336,15 +349,54 @@ export default function InvitadosClient() {
                 <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
                   Acompañantes adicionales
                 </label>
-                <input
-                  type="number"
-                  min={0}
-                  max={10}
+                <select
                   value={nuevoInvitado.num_acompanantes}
-                  onChange={(e) => setNuevoInvitado((f) => ({ ...f, num_acompanantes: parseInt(e.target.value) || 0 }))}
+                  onChange={(e) => setNumAcomp(parseInt(e.target.value) || 0)}
                   className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
-                />
+                >
+                  {[0,1,2,3,4,5,6,7,8,9,10].map((n) => (
+                    <option key={n} value={n}>{n === 0 ? 'Ninguno' : n}</option>
+                  ))}
+                </select>
               </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Bebida (titular)</label>
+                <select
+                  value={nuevoInvitado.bebida}
+                  onChange={(e) => setNuevoInvitado((f) => ({ ...f, bebida: e.target.value }))}
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
+                >
+                  <option value="">Sin especificar</option>
+                  <option value="cerveza">Cerveza</option>
+                  <option value="vino">Vino</option>
+                  <option value="whisky">Whisky</option>
+                  <option value="ron">Ron</option>
+                  <option value="ginebra">Ginebra</option>
+                  <option value="vodka">Vodka</option>
+                  <option value="refresco">Refresco / sin alcohol</option>
+                  <option value="de_todo">De todo un poco</option>
+                </select>
+              </div>
+              {nuevaBebidasAcomp.map((b, i) => (
+                <div key={i}>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Bebida acompañante {i + 1}</label>
+                  <select
+                    value={b}
+                    onChange={(e) => setNuevaBebidasAcomp((arr) => arr.map((x, j) => j === i ? e.target.value : x))}
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
+                  >
+                    <option value="">Sin especificar</option>
+                    <option value="cerveza">Cerveza</option>
+                    <option value="vino">Vino</option>
+                    <option value="whisky">Whisky</option>
+                    <option value="ron">Ron</option>
+                    <option value="ginebra">Ginebra</option>
+                    <option value="vodka">Vodka</option>
+                    <option value="refresco">Refresco / sin alcohol</option>
+                    <option value="de_todo">De todo un poco</option>
+                  </select>
+                </div>
+              ))}
               <div>
                 <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
                   Notas
