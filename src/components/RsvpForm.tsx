@@ -89,9 +89,11 @@ export default function RsvpForm() {
             <option value="">Selecciona...</option>
             <option value="cerveza">Cerveza</option>
             <option value="vino">Vino</option>
-            <option value="combinados">Combinados / alcohol</option>
-            <option value="refresco">Refrescos</option>
-            <option value="agua">Agua / sin alcohol</option>
+            <option value="whisky">Whisky</option>
+            <option value="ron">Ron</option>
+            <option value="ginebra">Ginebra</option>
+            <option value="vodka">Vodka</option>
+            <option value="refresco">Refresco / sin alcohol</option>
             <option value="de_todo">De todo un poco</option>
           </select>
         </div>
