@@ -43,31 +43,34 @@ export default function ContadorInvitados() {
   }, [])
 
   return (
-    <div className="space-y-4">
-      {/* Cuenta atrás */}
-      {countdown && (
-        <div className="flex justify-center gap-3 sm:gap-6">
-          {[
-            { valor: countdown.dias, label: 'días' },
-            { valor: countdown.horas, label: 'horas' },
-            { valor: countdown.min, label: 'min' },
-            { valor: countdown.seg, label: 'seg' },
-          ].map(({ valor, label }) => (
-            <div key={label} className="text-center">
-              <p className="text-3xl sm:text-4xl font-bold text-[#1a3a6b] tabular-nums w-14 sm:w-16">
-                {String(valor).padStart(2, '0')}
-              </p>
-              <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">{label}</p>
-            </div>
-          ))}
+    <div className="flex justify-center items-center gap-5 sm:gap-8 flex-wrap">
+      {/* Confirmados — grande */}
+      {confirmados !== null && (
+        <div className="text-center">
+          <p className="text-5xl sm:text-6xl font-bold text-[#1a3a6b]">{confirmados}</p>
+          <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">confirmados</p>
         </div>
       )}
 
-      {/* Confirmados */}
-      {confirmados !== null && (
-        <p className="text-sm text-gray-500">
-          <span className="font-bold text-[#1a3a6b]">{confirmados}</span> persona{confirmados !== 1 ? 's' : ''} confirmada{confirmados !== 1 ? 's' : ''}
-        </p>
+      {confirmados !== null && countdown && (
+        <div className="w-px h-10 bg-gray-200 hidden sm:block" />
+      )}
+
+      {/* Cuenta atrás — pequeña */}
+      {countdown && (
+        <div className="flex items-end gap-2 sm:gap-3">
+          {[
+            { valor: countdown.dias, label: 'd' },
+            { valor: countdown.horas, label: 'h' },
+            { valor: countdown.min, label: 'm' },
+            { valor: countdown.seg, label: 's' },
+          ].map(({ valor, label }) => (
+            <div key={label} className="text-center">
+              <p className="text-lg sm:text-xl font-bold text-[#1a3a6b] tabular-nums">{String(valor).padStart(2, '0')}</p>
+              <p className="text-[10px] text-gray-400 uppercase tracking-widest">{label}</p>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   )
