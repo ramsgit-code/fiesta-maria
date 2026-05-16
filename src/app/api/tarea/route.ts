@@ -47,9 +47,9 @@ export async function POST(req: NextRequest) {
             <p style="margin: 0 0 6px; font-size: 18px; font-weight: bold; color: #1a3a6b;">${titulo.trim()}</p>
             ${descripcion?.trim() ? `<p style="margin: 0; color: #666; font-size: 14px;">${descripcion.trim()}</p>` : ''}
           </div>
-          <p style="color: #333; line-height: 1.6;">Cuando la hayas completado, márcala como hecha en la web de la fiesta:</p>
-          <a href="https://fiesta-maria.vercel.app/tareas" style="display: inline-block; background: #1a3a6b; color: white; text-decoration: none; padding: 12px 28px; border-radius: 24px; font-weight: bold; margin-top: 8px; font-size: 14px;">
-            Ver mis tareas →
+          <p style="color: #333; line-height: 1.6;">Cuando la hayas completado, haz click aquí para confirmarla:</p>
+          <a href="https://fiesta-maria.vercel.app/tarea/${data.id}" style="display: inline-block; background: #1a3a6b; color: white; text-decoration: none; padding: 12px 28px; border-radius: 24px; font-weight: bold; margin-top: 8px; font-size: 14px;">
+            ✓ Marcar como completada →
           </a>
           <p style="color: #999; font-size: 12px; margin-top: 32px;">¡Gracias por ayudar a que la fiesta de María sea perfecta! 🎉</p>
         </div>
