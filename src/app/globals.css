@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+  --azul-policia: #1a3a6b;
+  --azul-oscuro: #0f2347;
+  --dorado: #c9a84c;
+  --dorado-claro: #e8c96a;
+  --crema: #fdf8f0;
+}
+
+body {
+  background-color: var(--crema);
+}

@@ -1,0 +1,169 @@
+import ComentarioForm from '@/components/ComentarioForm'
+
+const agenda = [
+  { hora: '12:00', titulo: 'Llegada de invitados', desc: 'Recepción en la finca de Gemuño' },
+  { hora: '12:30', titulo: 'Ceremonia de Jura', desc: 'Acto oficial de la Jura de la Policía Nacional' },
+  { hora: '14:00', titulo: 'Aperitivo', desc: 'Bienvenida y brindis de celebración' },
+  { hora: '15:00', titulo: 'Comida', desc: 'Comida campestre en la finca' },
+  { hora: '18:00', titulo: 'Sobremesa y fiesta', desc: 'Música, baile y celebración' },
+]
+
+const menu = [
+  { categoria: 'Aperitivos', items: ['Jamón ibérico y embutidos', 'Quesos variados', 'Croquetas caseras', 'Pinchos y tostas'] },
+  { categoria: 'Primeros', items: ['Ensalada de la huerta', 'Gazpacho andaluz'] },
+  { categoria: 'Segundos', items: ['Cordero asado al horno', 'Pollo al chilindrón'] },
+  { categoria: 'Postres', items: ['Tarta de celebración', 'Frutas de temporada', 'Café e infusiones'] },
+]
+
+export default function Home() {
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-8 space-y-10">
+
+      {/* Hero */}
+      <section className="relative rounded-3xl overflow-hidden bg-[#1a3a6b] text-white shadow-2xl">
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%)',
+            backgroundSize: '20px 20px',
+          }}
+        />
+        <div className="relative p-8 md:p-14 text-center">
+          <div className="text-6xl mb-4">👮‍♀️🎖️</div>
+          <div className="inline-block bg-[#c9a84c] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">
+            Promoción 41 · Policía Nacional
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold mb-3 leading-tight">
+            ¡La Jura de María!
+          </h1>
+          <p className="text-blue-200 text-lg md:text-xl mb-8 max-w-xl mx-auto">
+            Únete a nosotros para celebrar este momento tan especial con toda la familia y amigos.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 py-3 flex items-center gap-2">
+              <span className="text-2xl">📅</span>
+              <div className="text-left">
+                <p className="text-blue-200 text-xs">Fecha</p>
+                <p className="font-bold">Sábado, 30 de mayo de 2026</p>
+              </div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 py-3 flex items-center gap-2">
+              <span className="text-2xl">📍</span>
+              <div className="text-left">
+                <p className="text-blue-200 text-xs">Lugar</p>
+                <p className="font-bold">Finca familiar · Gemuño, Ávila</p>
+              </div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 py-3 flex items-center gap-2">
+              <span className="text-2xl">🕐</span>
+              <div className="text-left">
+                <p className="text-blue-200 text-xs">Hora de inicio</p>
+                <p className="font-bold">12:00h</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Agenda */}
+        <section className="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
+          <h2 className="text-2xl font-bold text-[#1a3a6b] mb-5 flex items-center gap-2">
+            <span>🗓️</span> El Plan del Día
+          </h2>
+          <div className="space-y-4">
+            {agenda.map((item, i) => (
+              <div key={i} className="flex gap-4">
+                <div className="flex-shrink-0 w-16 text-right">
+                  <span className="text-sm font-bold text-[#c9a84c]">{item.hora}</span>
+                </div>
+                <div className="flex gap-3 flex-1">
+                  <div className="flex flex-col items-center">
+                    <div className="w-3 h-3 rounded-full bg-[#1a3a6b] mt-1 flex-shrink-0" />
+                    {i < agenda.length - 1 && <div className="w-0.5 flex-1 bg-gray-200 mt-1" />}
+                  </div>
+                  <div className="pb-4">
+                    <p className="font-semibold text-gray-800">{item.titulo}</p>
+                    <p className="text-sm text-gray-500">{item.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Menú */}
+        <section className="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
+          <h2 className="text-2xl font-bold text-[#1a3a6b] mb-5 flex items-center gap-2">
+            <span>🍽️</span> El Menú
+          </h2>
+          <div className="space-y-5">
+            {menu.map((cat) => (
+              <div key={cat.categoria}>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-[#c9a84c] mb-2">
+                  {cat.categoria}
+                </h3>
+                <ul className="space-y-1">
+                  {cat.items.map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-gray-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a3a6b] flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Mapa */}
+      <section className="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
+        <h2 className="text-2xl font-bold text-[#1a3a6b] mb-4 flex items-center gap-2">
+          <span>📍</span> Cómo Llegar
+        </h2>
+        <p className="text-gray-600 mb-4 text-sm">
+          La fiesta se celebra en la finca familiar en <strong>Gemuño, Ávila</strong>. Municipio a pocos kilómetros de la capital abulense.
+        </p>
+        <div className="rounded-xl overflow-hidden border border-gray-200 h-64">
+          <iframe
+            title="Mapa de Gemuño"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11960.5!2d-4.75!3d40.72!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3aea08c73edd49%3A0x4052c4d79f1f6f0!2sGemu%C3%B1o%2C%20%C3%81vila!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+        <a
+          href="https://maps.google.com/?q=Gemuño,+Ávila"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-[#1a3a6b] hover:text-[#c9a84c] transition-colors"
+        >
+          <span>🗺️</span> Abrir en Google Maps
+        </a>
+      </section>
+
+      {/* Info práctica */}
+      <section className="grid sm:grid-cols-3 gap-4">
+        {[
+          { icon: '👗', titulo: 'Dress code', desc: 'Casual elegante. ¡Pon un toque de azul o dorado en honor a María!' },
+          { icon: '🅿️', titulo: 'Aparcamiento', desc: 'Hay parking en la finca. Si venís en grupo, mejor compartir coche.' },
+          { icon: '📞', titulo: '¿Dudas?', desc: 'Escríbenos en el formulario de abajo o contacta directamente con la familia.' },
+        ].map((card) => (
+          <div key={card.titulo} className="bg-white rounded-2xl shadow-md border border-gray-100 p-5 text-center">
+            <div className="text-3xl mb-2">{card.icon}</div>
+            <h3 className="font-bold text-[#1a3a6b] mb-1">{card.titulo}</h3>
+            <p className="text-sm text-gray-500">{card.desc}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* Formulario de comentarios */}
+      <ComentarioForm />
+    </div>
+  )
+}
