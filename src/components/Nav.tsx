@@ -24,7 +24,7 @@ export default function Nav() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <div>
             <p className="text-[#c9a84c] font-semibold text-sm tracking-wide leading-tight">Jura de la Policía Nacional</p>
-            <p className="text-blue-300 text-xs leading-tight">María · Promoción 41 · 30 mayo 2026</p>
+            <p className="text-blue-300 text-xs leading-tight">María · Promoción 40 · 30 mayo 2026</p>
           </div>
           <div className="hidden sm:flex items-center gap-1">
             {links.map(({ href, label }) => (

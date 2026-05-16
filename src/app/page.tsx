@@ -1,18 +1,16 @@
 import ComentarioForm from '@/components/ComentarioForm'
 
 const agenda = [
-  { hora: '12:00', titulo: 'Llegada de invitados', desc: 'Recepción en la finca de Gemuño' },
-  { hora: '12:30', titulo: 'Ceremonia de Jura', desc: 'Acto oficial de la Policía Nacional' },
-  { hora: '14:00', titulo: 'Aperitivo', desc: 'Bienvenida y brindis de celebración' },
-  { hora: '15:00', titulo: 'Comida', desc: 'Comida campestre en la finca' },
-  { hora: '18:00', titulo: 'Sobremesa y fiesta', desc: 'Música, baile y celebración' },
+  { hora: '12–13', titulo: 'Llegada de invitados', desc: 'Recepción en la finca de Gemuño' },
+  { hora: '', titulo: 'Aperitivo', desc: 'Bienvenida y brindis de celebración' },
+  { hora: '', titulo: 'Comida', desc: 'Paella, barbacoa y mucho más' },
+  { hora: '', titulo: 'Fiesta', desc: 'Música, baile y celebración hasta el final' },
 ]
 
 const menu = [
-  { categoria: 'Aperitivos', items: ['Jamón ibérico y embutidos', 'Quesos variados', 'Croquetas caseras', 'Pinchos y tostas'] },
-  { categoria: 'Primeros', items: ['Ensalada de la huerta', 'Gazpacho andaluz'] },
-  { categoria: 'Segundos', items: ['Cordero asado al horno', 'Pollo al chilindrón'] },
-  { categoria: 'Postres', items: ['Tarta de celebración', 'Frutas de temporada', 'Café e infusiones'] },
+  { categoria: 'Primero', items: ['Paella de marisco y carne'] },
+  { categoria: 'Segundo', items: ['Barbacoa'] },
+  { categoria: 'Postre', items: ['Sorpresa 🤫'] },
 ]
 
 const fotos = [
@@ -27,7 +25,7 @@ export default function Home() {
       {/* Hero */}
       <section className="text-center">
         <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
-          Policía Nacional · Promoción 41
+          Policía Nacional Escala Básica · Promoción 40
         </p>
         <h1 className="font-serif text-5xl sm:text-7xl font-bold text-[#1a3a6b] leading-tight mb-6">
           La Jura de María
@@ -109,7 +107,7 @@ export default function Home() {
                   {i < agenda.length - 1 && <div className="w-px flex-1 bg-gray-200 mt-2" />}
                 </div>
                 <div className="pb-4">
-                  <p className="text-[#c9a84c] text-xs font-semibold tracking-wide mb-0.5">{item.hora}h</p>
+                  {item.hora && <p className="text-[#c9a84c] text-xs font-semibold tracking-wide mb-0.5">{item.hora}h</p>}
                   <p className="font-semibold text-[#1a3a6b]">{item.titulo}</p>
                   <p className="text-sm text-gray-500 mt-0.5">{item.desc}</p>
                 </div>
