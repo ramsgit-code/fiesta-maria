@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <a href="/admin" className="inline-block mt-2 text-blue-300/50 hover:text-blue-200 transition-colors text-xs">
             🔒 Admin
           </a>
+          <p className="mt-3 text-blue-300/40">Página hecha por Ramiro</p>
         </footer>
       </body>
     </html>
