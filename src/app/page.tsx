@@ -1,5 +1,6 @@
 import ContadorInvitados from '@/components/ContadorInvitados'
 import RsvpForm from '@/components/RsvpForm'
+import ScrollToRsvp from '@/components/ScrollToRsvp'
 
 const agenda = [
   { hora: '12–13h', titulo: 'Llegada de invitados' },
@@ -50,9 +51,7 @@ export default function Home() {
           </div>
         </div>
         <ContadorInvitados />
-        <a href="#rsvp" className="inline-block mt-4 text-sm font-semibold text-[#c9a84c] hover:underline">
-          ¿Vienes? Confirma tu asistencia →
-        </a>
+        <ScrollToRsvp />
       </section>
 
       {/* Vídeo */}
