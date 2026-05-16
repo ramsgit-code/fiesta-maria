@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
 
 export default function ComentarioForm() {
   const [form, setForm] = useState({ nombre: '', email: '', mensaje: '' })
@@ -12,17 +11,17 @@ export default function ComentarioForm() {
     if (!form.nombre.trim() || !form.mensaje.trim()) return
 
     setEstado('enviando')
-    const { error } = await supabase.from('comentarios').insert({
-      nombre: form.nombre.trim(),
-      email: form.email.trim() || null,
-      mensaje: form.mensaje.trim(),
+    const res = await fetch('/api/comentario', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
     })
 
-    if (error) {
-      setEstado('error')
-    } else {
+    if (res.ok) {
       setEstado('ok')
       setForm({ nombre: '', email: '', mensaje: '' })
+    } else {
+      setEstado('error')
     }
   }
 
