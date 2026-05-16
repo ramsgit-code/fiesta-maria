@@ -5,7 +5,7 @@ const agenda = [
   { hora: '12–13h', titulo: 'Llegada de invitados' },
   { hora: '', titulo: 'Aperitivo' },
   { hora: '', titulo: 'Comida' },
-  { hora: '', titulo: 'Fiesta' },
+  { hora: '', titulo: 'Fiesta · Piscina · DJ' },
 ]
 
 const menu = [
