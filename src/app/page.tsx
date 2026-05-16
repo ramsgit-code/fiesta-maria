@@ -119,7 +119,7 @@ export default function Home() {
         <div className="text-center">
           <div className="w-6 h-px bg-[#c9a84c] mx-auto mb-3" />
           <h3 className="font-semibold text-[#1a3a6b] text-xs uppercase tracking-wide mb-1">Dress code</h3>
-          <p className="text-xs text-gray-500">Casual elegante. Un toque de azul o dorado.</p>
+          <p className="text-xs text-gray-500">Casual elegante. Un toque de azul o dorado. ¡Y no olvides el bañador!</p>
         </div>
         <div className="text-center">
           <div className="w-6 h-px bg-[#c9a84c] mx-auto mb-3" />
