@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import { transporter, FROM, ADMIN_EMAIL } from '@/lib/mailer'
 import { createClient } from '@supabase/supabase-js'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -26,9 +24,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Error al guardar' }, { status: 500 })
   }
 
-  await resend.emails.send({
-    from: 'Fiesta María <onboarding@resend.dev>',
-    to: 'ramiroperez12@hotmail.com',
+  await transporter.sendMail({
+    from: FROM,
+    to: ADMIN_EMAIL,
     subject: `💬 Nuevo mensaje de ${nombre.trim()} — Fiesta Jura María`,
     html: `
       <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 32px; background: #f8f5f0;">

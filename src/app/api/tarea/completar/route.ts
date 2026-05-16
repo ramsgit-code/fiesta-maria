@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import { transporter, FROM, ADMIN_EMAIL } from '@/lib/mailer'
 import { createClient } from '@supabase/supabase-js'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -24,9 +23,9 @@ export async function POST(req: NextRequest) {
   await supabase.from('tareas').update({ completada }).eq('id', id)
 
   if (completada && tarea.asignado_a) {
-    await resend.emails.send({
-      from: 'Fiesta María <onboarding@resend.dev>',
-      to: 'ramiroperez12@hotmail.com',
+    await transporter.sendMail({
+      from: FROM,
+      to: ADMIN_EMAIL,
       subject: `✅ Tarea completada — ${tarea.titulo}`,
       html: `
         <div style="font-family: Georgia, serif; max-width: 520px; margin: 0 auto; padding: 32px; background: #f8f5f0;">

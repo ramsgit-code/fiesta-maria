@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import { transporter, FROM } from '@/lib/mailer'
 import { createClient } from '@supabase/supabase-js'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -33,8 +32,8 @@ export async function POST(req: NextRequest) {
 
   if (email_asignado?.trim()) {
     const nombre = asignado_a?.trim() || email_asignado.trim()
-    await resend.emails.send({
-      from: 'Fiesta María <onboarding@resend.dev>',
+    await transporter.sendMail({
+      from: FROM,
       to: email_asignado.trim(),
       subject: `📋 Tienes una tarea para la fiesta de María`,
       html: `
