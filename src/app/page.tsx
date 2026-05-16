@@ -117,6 +117,27 @@ export default function Home() {
         </section>
       </div>
 
+      {/* Vídeo de la finca */}
+      <section className="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
+        <h2 className="text-2xl font-bold text-[#1a3a6b] mb-4 flex items-center gap-2">
+          <span>🎥</span> La Finca
+        </h2>
+        <p className="text-gray-600 mb-4 text-sm">Un vistazo desde el aire a donde celebraremos este día tan especial.</p>
+        <div className="rounded-xl overflow-hidden border border-gray-200">
+          <video
+            controls
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full"
+            style={{ maxHeight: '480px', objectFit: 'cover' }}
+          >
+            <source src="https://ytxpsbophwkqcsraptuy.supabase.co/storage/v1/object/public/media/VideoFincaMery_web.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </section>
+
       {/* Mapa */}
       <section className="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
         <h2 className="text-2xl font-bold text-[#1a3a6b] mb-4 flex items-center gap-2">
