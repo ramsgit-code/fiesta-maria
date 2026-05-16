@@ -9,6 +9,7 @@ const agenda = [
 ]
 
 const menu = [
+  { categoria: 'Picoteo', item: 'Ensaladilla rusa, tortilla de patatas, embutido y más...' },
   { categoria: 'Primero', item: 'Paella de marisco y carne' },
   { categoria: 'Segundo', item: 'Barbacoa' },
   { categoria: 'Postre', item: 'Sorpresa 🤫' },
