@@ -52,6 +52,11 @@ export default function Home() {
         <ScrollToRsvp />
       </section>
 
+      {/* RSVP */}
+      <div data-section="rsvp">
+        <RsvpForm />
+      </div>
+
       {/* Vídeo */}
       <section>
         <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-2">La finca</p>
@@ -62,11 +67,6 @@ export default function Home() {
           </video>
         </div>
       </section>
-
-      {/* RSVP — debajo del vídeo */}
-      <div data-section="rsvp">
-        <RsvpForm />
-      </div>
 
       {/* Galería */}
       <section>
