@@ -139,6 +139,27 @@ export default function Home() {
         </section>
       </div>
 
+      {/* Galería de fotos */}
+      <section className="bg-white rounded-2xl shadow-md border border-gray-100 p-5 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-[#1a3a6b] mb-4 flex items-center gap-2">
+          <span>📸</span> Fotos de María
+        </h2>
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          {[
+            'https://ytxpsbophwkqcsraptuy.supabase.co/storage/v1/object/public/media/foto1.jpeg',
+            'https://ytxpsbophwkqcsraptuy.supabase.co/storage/v1/object/public/media/foto2.jpeg',
+          ].map((src, i) => (
+            <a key={i} href={src} target="_blank" rel="noopener noreferrer" className="block">
+              <img
+                src={src}
+                alt={`Foto de María ${i + 1}`}
+                className="w-full h-48 sm:h-72 object-cover rounded-xl hover:opacity-90 transition-opacity cursor-zoom-in"
+              />
+            </a>
+          ))}
+        </div>
+      </section>
+
       {/* Cómo llegar */}
       <section className="bg-white rounded-2xl shadow-md border border-gray-100 p-5 sm:p-6">
         <h2 className="text-xl sm:text-2xl font-bold text-[#1a3a6b] mb-3 flex items-center gap-2">
