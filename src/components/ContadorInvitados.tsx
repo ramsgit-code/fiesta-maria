@@ -47,13 +47,13 @@ export default function ContadorInvitados() {
       {/* Confirmados — grande */}
       {confirmados !== null && (
         <div className="text-center">
-          <p className="text-5xl sm:text-6xl font-bold text-[#1a3a6b]">{confirmados}</p>
-          <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">invitados confirmados</p>
+          <p className="text-5xl sm:text-6xl font-bold text-white">{confirmados}</p>
+          <p className="text-xs text-blue-200 uppercase tracking-widest mt-1">invitados confirmados</p>
         </div>
       )}
 
       {confirmados !== null && countdown && (
-        <div className="w-px h-10 bg-gray-200 hidden sm:block" />
+        <div className="w-px h-10 bg-blue-400/40 hidden sm:block" />
       )}
 
       {/* Cuenta atrás — pequeña */}
@@ -66,8 +66,8 @@ export default function ContadorInvitados() {
             { valor: countdown.seg, label: 's' },
           ].map(({ valor, label }) => (
             <div key={label} className="text-center">
-              <p className="text-lg sm:text-xl font-bold text-[#1a3a6b] tabular-nums">{String(valor).padStart(2, '0')}</p>
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest">{label}</p>
+              <p className="text-lg sm:text-xl font-bold text-white tabular-nums">{String(valor).padStart(2, '0')}</p>
+              <p className="text-[10px] text-blue-200 uppercase tracking-widest">{label}</p>
             </div>
           ))}
         </div>
