@@ -20,6 +20,7 @@ export default function InvitadosClient() {
   const [resultadoBusqueda, setResultadoBusqueda] = useState<Invitado[]>([])
   const [invitadoEditando, setInvitadoEditando] = useState<Invitado | null>(null)
   const [editForm, setEditForm] = useState({ nombre: '', email: '', telefono: '', num_acompanantes: 0, comentario: '', bebida: '', confirmado: false })
+  const [editBebidasAcomp, setEditBebidasAcomp] = useState<string[]>([])
   const [guardandoEdit, setGuardandoEdit] = useState(false)
 
   const cargarInvitados = async () => {
@@ -84,6 +85,9 @@ export default function InvitadosClient() {
       bebida: inv.bebida || '',
       confirmado: inv.confirmado,
     })
+    const acomp = inv.bebidas_acompanantes || []
+    const arr = Array.from({ length: inv.num_acompanantes }, (_, i) => acomp[i] || '')
+    setEditBebidasAcomp(arr)
   }
 
   const guardarEdicion = async (e: React.FormEvent) => {
@@ -97,6 +101,7 @@ export default function InvitadosClient() {
       num_acompanantes: editForm.num_acompanantes,
       comentario: editForm.comentario.trim() || null,
       bebida: editForm.bebida.trim() || null,
+      bebidas_acompanantes: editBebidasAcomp.length ? editBebidasAcomp : null,
       confirmado: editForm.confirmado,
     }).eq('id', invitadoEditando.id)
     setInvitadoEditando(null)
@@ -424,7 +429,7 @@ export default function InvitadosClient() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Bebida</label>
+                <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Bebida (titular)</label>
                 <select
                   value={editForm.bebida}
                   onChange={(e) => setEditForm((f) => ({ ...f, bebida: e.target.value }))}
@@ -441,6 +446,26 @@ export default function InvitadosClient() {
                   <option value="de_todo">De todo un poco</option>
                 </select>
               </div>
+              {editBebidasAcomp.map((b, i) => (
+                <div key={i}>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Bebida acompañante {i + 1}</label>
+                  <select
+                    value={b}
+                    onChange={(e) => setEditBebidasAcomp((arr) => arr.map((x, j) => j === i ? e.target.value : x))}
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] text-gray-800"
+                  >
+                    <option value="">Sin especificar</option>
+                    <option value="cerveza">Cerveza</option>
+                    <option value="vino">Vino</option>
+                    <option value="whisky">Whisky</option>
+                    <option value="ron">Ron</option>
+                    <option value="ginebra">Ginebra</option>
+                    <option value="vodka">Vodka</option>
+                    <option value="refresco">Refresco / sin alcohol</option>
+                    <option value="de_todo">De todo un poco</option>
+                  </select>
+                </div>
+              ))}
               <div>
                 <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Notas</label>
                 <textarea
