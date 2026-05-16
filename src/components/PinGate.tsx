@@ -2,23 +2,41 @@
 
 import { useState, useEffect } from 'react'
 
-const PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || '0000'
-const SESSION_KEY = 'acceso_fiesta'
+const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || '9999'
+const TASKS_PIN = process.env.NEXT_PUBLIC_TASKS_PIN || '1234'
 
-export default function PinGate({ children }: { children: React.ReactNode }) {
+const SESSION_ADMIN = 'acceso_admin'
+const SESSION_TASKS = 'acceso_tareas'
+
+type Level = 'admin' | 'tasks'
+
+export function hasAdminAccess() {
+  if (typeof window === 'undefined') return false
+  return sessionStorage.getItem(SESSION_ADMIN) === 'true'
+}
+
+export default function PinGate({ children, level }: { children: React.ReactNode; level: Level }) {
   const [acceso, setAcceso] = useState(false)
   const [pin, setPin] = useState('')
   const [error, setError] = useState(false)
   const [checking, setChecking] = useState(true)
 
   useEffect(() => {
-    if (sessionStorage.getItem(SESSION_KEY) === 'true') setAcceso(true)
+    if (level === 'admin' && sessionStorage.getItem(SESSION_ADMIN) === 'true') setAcceso(true)
+    if (level === 'tasks' && (
+      sessionStorage.getItem(SESSION_TASKS) === 'true' ||
+      sessionStorage.getItem(SESSION_ADMIN) === 'true'
+    )) setAcceso(true)
     setChecking(false)
-  }, [])
+  }, [level])
 
   const verificar = () => {
-    if (pin === PIN) {
-      sessionStorage.setItem(SESSION_KEY, 'true')
+    if (pin === ADMIN_PIN) {
+      sessionStorage.setItem(SESSION_ADMIN, 'true')
+      sessionStorage.setItem(SESSION_TASKS, 'true')
+      setAcceso(true)
+    } else if (level === 'tasks' && pin === TASKS_PIN) {
+      sessionStorage.setItem(SESSION_TASKS, 'true')
       setAcceso(true)
     } else {
       setError(true)
@@ -27,7 +45,6 @@ export default function PinGate({ children }: { children: React.ReactNode }) {
   }
 
   if (checking) return null
-
   if (acceso) return <>{children}</>
 
   return (
@@ -49,7 +66,7 @@ export default function PinGate({ children }: { children: React.ReactNode }) {
             error ? 'border-red-400 bg-red-50' : 'border-gray-200'
           }`}
         />
-        {error && <p className="text-red-400 text-xs mb-4">Código incorrecto</p>}
+        {error && <p className="text-red-400 text-xs mb-2">Código incorrecto</p>}
         <button
           onClick={verificar}
           className="w-full mt-4 bg-[#1a3a6b] hover:bg-[#0f2347] text-white font-semibold py-3 rounded-full transition-all text-sm"

@@ -3,7 +3,7 @@ import PinGate from '@/components/PinGate'
 
 export default function TareasPage() {
   return (
-    <PinGate>
+    <PinGate level="tasks">
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="mb-8">
           <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-2">Organización</p>

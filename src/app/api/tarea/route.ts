@@ -47,7 +47,12 @@ export async function POST(req: NextRequest) {
             <p style="margin: 0 0 6px; font-size: 18px; font-weight: bold; color: #1a3a6b;">${titulo.trim()}</p>
             ${descripcion?.trim() ? `<p style="margin: 0; color: #666; font-size: 14px;">${descripcion.trim()}</p>` : ''}
           </div>
-          <p style="color: #333; line-height: 1.6;">Cuando la hayas completado, haz click aquí para confirmarla:</p>
+          <div style="background: #f0f4ff; border: 1px solid #c7d4f0; border-radius: 12px; padding: 16px 20px; margin: 20px 0; text-align: center;">
+            <p style="margin: 0 0 4px; font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 2px;">Tu código de acceso</p>
+            <p style="margin: 0; font-size: 32px; font-weight: bold; color: #1a3a6b; letter-spacing: 8px;">${process.env.NEXT_PUBLIC_TASKS_PIN || '1234'}</p>
+            <p style="margin: 8px 0 0; font-size: 12px; color: #6b7280;">Úsalo en <a href="https://fiesta-maria.vercel.app/tareas" style="color: #c9a84c;">fiesta-maria.vercel.app/tareas</a> para ver y gestionar las tareas</p>
+          </div>
+          <p style="color: #333; line-height: 1.6; margin-top: 16px;">O marca directamente tu tarea como completada:</p>
           <a href="https://fiesta-maria.vercel.app/tarea/${data.id}" style="display: inline-block; background: #1a3a6b; color: white; text-decoration: none; padding: 12px 28px; border-radius: 24px; font-weight: bold; margin-top: 8px; font-size: 14px;">
             ✓ Marcar como completada →
           </a>

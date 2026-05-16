@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import type { Tarea } from '@/types/database'
 
-const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || '0000'
+const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || '9999'
 
 export default function TareasClient() {
   const [tareas, setTareas] = useState<Tarea[]>([])
