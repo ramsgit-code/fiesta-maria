@@ -8,7 +8,7 @@ const supabase = createClient(
 )
 
 export async function POST(req: NextRequest) {
-  const { nombre, email, num_acompanantes, comentario } = await req.json()
+  const { nombre, email, num_acompanantes, comentario, bebida } = await req.json()
 
   if (!nombre?.trim() || !email?.trim()) {
     return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 })
@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
     email: email.trim().toLowerCase(),
     num_acompanantes: num_acompanantes || 0,
     comentario: comentario?.trim() || null,
+    bebida: bebida?.trim() || null,
     confirmado: true,
   })
 
@@ -48,6 +49,7 @@ export async function POST(req: NextRequest) {
         <p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Nombre:</strong> ${nombre.trim()}</p>
         <p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Email:</strong> ${email.trim()}</p>
         <p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Acompañantes:</strong> ${num_acompanantes || 0}</p>
+        ${bebida?.trim() ? `<p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Bebida:</strong> ${bebida.trim()}</p>` : ''}
         ${comentario?.trim() ? `<p style="margin: 8px 0 0;"><strong style="color: #1a3a6b;">Nota:</strong> ${comentario.trim()}</p>` : ''}
       </div>
     `,

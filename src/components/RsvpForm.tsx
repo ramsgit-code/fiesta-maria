@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 export default function RsvpForm() {
-  const [form, setForm] = useState({ nombre: '', email: '', num_acompanantes: 0, comentario: '' })
+  const [form, setForm] = useState({ nombre: '', email: '', num_acompanantes: 0, comentario: '', bebida: '' })
   const [estado, setEstado] = useState<'idle' | 'enviando' | 'ok' | 'duplicado' | 'error'>('idle')
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -75,6 +75,24 @@ export default function RsvpForm() {
             {[0, 1, 2, 3, 4, 5].map((n) => (
               <option key={n} value={n}>{n === 0 ? 'Vengo solo/a' : `${n} acompañante${n > 1 ? 's' : ''}`}</option>
             ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-widest">
+            ¿Qué bebes?
+          </label>
+          <select
+            value={form.bebida}
+            onChange={(e) => setForm((f) => ({ ...f, bebida: e.target.value }))}
+            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] transition-colors bg-white text-gray-800 text-sm"
+          >
+            <option value="">Selecciona...</option>
+            <option value="cerveza">Cerveza</option>
+            <option value="vino">Vino</option>
+            <option value="combinados">Combinados / alcohol</option>
+            <option value="refresco">Refrescos</option>
+            <option value="agua">Agua / sin alcohol</option>
+            <option value="de_todo">De todo un poco</option>
           </select>
         </div>
         <div>
