@@ -33,6 +33,7 @@ export type Database = {
           titulo: string
           descripcion: string | null
           asignado_a: string | null
+          email_asignado: string | null
           completada: boolean
           created_at: string
         }
@@ -41,6 +42,7 @@ export type Database = {
           titulo: string
           descripcion?: string | null
           asignado_a?: string | null
+          email_asignado?: string | null
           completada?: boolean
           created_at?: string
         }
@@ -49,6 +51,7 @@ export type Database = {
           titulo?: string
           descripcion?: string | null
           asignado_a?: string | null
+          email_asignado?: string | null
           completada?: boolean
           created_at?: string
         }
