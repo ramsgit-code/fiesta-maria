@@ -48,7 +48,7 @@ export default function ContadorInvitados() {
       {confirmados !== null && (
         <div className="text-center">
           <p className="text-5xl sm:text-6xl font-bold text-[#1a3a6b]">{confirmados}</p>
-          <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">confirmados</p>
+          <p className="text-xs text-gray-400 uppercase tracking-widest mt-1">invitados confirmados</p>
         </div>
       )}
 
