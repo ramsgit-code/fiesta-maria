@@ -8,7 +8,7 @@ const supabase = createClient(
 )
 
 export async function POST(req: NextRequest) {
-  const { nombre, email, num_acompanantes, comentario, bebida } = await req.json()
+  const { nombre, email, num_acompanantes, comentario, bebida, bebidas_acompanantes } = await req.json()
 
   if (!nombre?.trim() || !email?.trim()) {
     return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 })
@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
     num_acompanantes: num_acompanantes || 0,
     comentario: comentario?.trim() || null,
     bebida: bebida?.trim() || null,
+    bebidas_acompanantes: bebidas_acompanantes?.length ? bebidas_acompanantes : null,
     confirmado: true,
   })
 

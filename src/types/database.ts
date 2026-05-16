@@ -67,6 +67,7 @@ export type Database = {
           num_acompanantes: number
           comentario: string | null
           bebida: string | null
+          bebidas_acompanantes: string[] | null
           created_at: string
         }
         Insert: {
@@ -78,6 +79,7 @@ export type Database = {
           num_acompanantes?: number
           comentario?: string | null
           bebida?: string | null
+          bebidas_acompanantes?: string[] | null
           created_at?: string
         }
         Update: {
@@ -89,6 +91,7 @@ export type Database = {
           num_acompanantes?: number
           comentario?: string | null
           bebida?: string | null
+          bebidas_acompanantes?: string[] | null
           created_at?: string
         }
         Relationships: []

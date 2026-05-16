@@ -235,6 +235,15 @@ export default function InvitadosClient() {
                   {inv.telefono && <span>📱 {inv.telefono}</span>}
                   {inv.bebida && <span>🥃 {inv.bebida}</span>}
                 </div>
+                {inv.bebidas_acompanantes && inv.bebidas_acompanantes.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {inv.bebidas_acompanantes.map((b, i) => b && (
+                      <span key={i} className="text-xs bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full">
+                        Acomp. {i + 1}: {b}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 {inv.comentario && (
                   <p className="text-xs text-gray-500 mt-1 italic">"{inv.comentario}"</p>
                 )}
