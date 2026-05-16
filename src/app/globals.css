@@ -1,13 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --azul-policia: #1a3a6b;
+  --azul: #1a3a6b;
   --azul-oscuro: #0f2347;
   --dorado: #c9a84c;
-  --dorado-claro: #e8c96a;
-  --crema: #fdf8f0;
+  --crema: #f8f5f0;
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
 }
 
 body {
   background-color: var(--crema);
+  font-family: var(--font-inter);
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-serif {
+  font-family: var(--font-playfair);
+}
+
+.font-sans {
+  font-family: var(--font-inter);
 }

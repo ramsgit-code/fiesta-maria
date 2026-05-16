@@ -27,31 +27,29 @@ export default function ComentarioForm() {
   }
 
   return (
-    <section className="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
-      <h2 className="text-2xl font-bold text-[#1a3a6b] mb-2 flex items-center gap-2">
-        <span>💬</span> ¿Tienes algo que decir?
-      </h2>
-      <p className="text-gray-500 text-sm mb-5">
-        Déjanos un mensaje, petición o simplemente dinos que estás emocionado/a por la celebración.
+    <section>
+      <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Contacto</p>
+      <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1a3a6b] mb-2">Déjanos un mensaje</h2>
+      <p className="text-gray-500 text-sm mb-8 max-w-md">
+        Peticiones musicales, alergias, o simplemente que nos digas que estás emocionado/a.
       </p>
 
       {estado === 'ok' ? (
-        <div className="text-center py-8">
-          <div className="text-5xl mb-3">🎉</div>
-          <p className="font-bold text-[#1a3a6b] text-lg">¡Mensaje enviado!</p>
-          <p className="text-gray-500 text-sm mt-1">Gracias por tu mensaje. ¡Nos vemos el 30 de mayo!</p>
+        <div className="py-12 text-center border border-gray-200 rounded-2xl bg-white">
+          <p className="font-serif text-2xl font-bold text-[#1a3a6b] mb-2">¡Mensaje enviado!</p>
+          <p className="text-gray-500 text-sm">Nos vemos el 30 de mayo.</p>
           <button
             onClick={() => setEstado('idle')}
-            className="mt-4 text-sm text-[#1a3a6b] underline hover:text-[#c9a84c] transition-colors"
+            className="mt-6 text-sm text-[#c9a84c] hover:underline transition-colors"
           >
             Enviar otro mensaje
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid sm:grid-cols-2 gap-5">
             <div>
-              <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
+              <label className="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">
                 Nombre *
               </label>
               <input
@@ -60,11 +58,11 @@ export default function ComentarioForm() {
                 placeholder="Tu nombre"
                 value={form.nombre}
                 onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] focus:border-transparent transition-all bg-white text-gray-800 placeholder-gray-400"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] transition-colors bg-white text-gray-800 placeholder-gray-300 text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
+              <label className="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">
                 Email (opcional)
               </label>
               <input
@@ -72,30 +70,30 @@ export default function ComentarioForm() {
                 placeholder="tu@email.com"
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] focus:border-transparent transition-all bg-white text-gray-800 placeholder-gray-400"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] transition-colors bg-white text-gray-800 placeholder-gray-300 text-sm"
               />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
-              Mensaje o petición *
+            <label className="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">
+              Mensaje *
             </label>
             <textarea
               required
-              rows={3}
-              placeholder="Escribe tu mensaje, petición musical, alérgias alimentarias..."
+              rows={4}
+              placeholder="Tu mensaje, petición musical, alergias..."
               value={form.mensaje}
               onChange={(e) => setForm((f) => ({ ...f, mensaje: e.target.value }))}
-              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a3a6b] focus:border-transparent transition-all bg-white text-gray-800 placeholder-gray-400 resize-none"
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1a3a6b] transition-colors bg-white text-gray-800 placeholder-gray-300 resize-none text-sm"
             />
           </div>
           {estado === 'error' && (
-            <p className="text-red-500 text-sm">Hubo un error al enviar. Inténtalo de nuevo.</p>
+            <p className="text-red-400 text-sm">Hubo un error al enviar. Inténtalo de nuevo.</p>
           )}
           <button
             type="submit"
             disabled={estado === 'enviando'}
-            className="bg-[#1a3a6b] hover:bg-[#0f2347] disabled:opacity-60 text-white font-semibold py-2.5 px-8 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+            className="bg-[#1a3a6b] hover:bg-[#0f2347] disabled:opacity-50 text-white font-medium py-3.5 px-8 rounded-full transition-all duration-200 text-sm tracking-wide shadow-md hover:shadow-lg"
           >
             {estado === 'enviando' ? 'Enviando...' : 'Enviar mensaje'}
           </button>

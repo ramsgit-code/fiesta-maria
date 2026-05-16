@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
 export const metadata: Metadata = {
   title: 'Fiesta de la Jura · María · Promoción 41',
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className="h-full">
-      <body className={`${inter.className} min-h-full flex flex-col bg-[#fdf8f0]`}>
+      <body className={`${inter.variable} ${playfair.variable} font-sans min-h-full flex flex-col bg-[#f8f5f0]`}>
         <Nav />
         <main className="flex-1">{children}</main>
         <footer className="bg-[#1a3a6b] text-blue-200 text-center text-xs py-4 mt-12">
