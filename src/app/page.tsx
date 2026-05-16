@@ -49,7 +49,6 @@ export default function Home() {
           </div>
         </div>
         <ContadorInvitados />
-        <ScrollToRsvp />
       </section>
 
       {/* RSVP */}
