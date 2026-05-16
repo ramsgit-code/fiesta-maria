@@ -12,6 +12,7 @@ const menu = [
   { categoria: 'Primero', item: 'Paella de marisco y carne' },
   { categoria: 'Segundo', item: 'Barbacoa' },
   { categoria: 'Postre', item: 'Sorpresa 🤫' },
+  { categoria: 'Bebida', item: 'Alcohol, cerveza, vino y refrescos — barra libre' },
 ]
 
 const fotos = [
