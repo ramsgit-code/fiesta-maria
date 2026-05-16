@@ -1,20 +1,19 @@
 import ContadorInvitados from '@/components/ContadorInvitados'
 import RsvpForm from '@/components/RsvpForm'
-import ScrollToRsvp from '@/components/ScrollToRsvp'
 
 const agenda = [
-  { hora: '12–13h', titulo: 'Llegada de invitados' },
-  { hora: '', titulo: 'Aperitivo' },
-  { hora: '', titulo: 'Comida' },
-  { hora: '', titulo: 'Fiesta · Piscina · DJ' },
+  { emoji: '🚗', hora: '12–13h', titulo: 'Llegada de invitados' },
+  { emoji: '🥂', hora: '', titulo: 'Aperitivo' },
+  { emoji: '🍽️', hora: '', titulo: 'Comida' },
+  { emoji: '🎶', hora: '', titulo: 'Fiesta · Piscina · DJ' },
 ]
 
 const menu = [
-  { categoria: 'Picoteo', item: 'Ensaladilla rusa, tortilla de patatas, embutido y más...' },
-  { categoria: 'Primero', item: 'Paella de marisco y carne' },
-  { categoria: 'Segundo', item: 'Barbacoa' },
-  { categoria: 'Postre', item: 'Sorpresa 🤫' },
-  { categoria: 'Bebida', item: 'Alcohol, cerveza, vino y refrescos — barra libre' },
+  { emoji: '🫙', categoria: 'Picoteo', item: 'Ensaladilla rusa, tortilla de patatas, embutido y más...' },
+  { emoji: '🥘', categoria: 'Primero', item: 'Paella de marisco y carne' },
+  { emoji: '🔥', categoria: 'Segundo', item: 'Barbacoa' },
+  { emoji: '🤫', categoria: 'Postre', item: 'Sorpresa' },
+  { emoji: '🍺', categoria: 'Bebida', item: 'Alcohol, cerveza, vino y refrescos — barra libre' },
 ]
 
 const fotos = [
@@ -28,31 +27,43 @@ export default function Home() {
 
       {/* Hero */}
       <section className="text-center">
-        <h1 className="font-serif text-4xl sm:text-6xl font-bold text-[#1a3a6b] leading-tight mb-1">
+        <h1 className="font-serif text-4xl sm:text-6xl font-bold text-[#1a3a6b] leading-tight">
           La Jura de María
         </h1>
-        <p className="text-gray-400 text-sm mb-4">Promoción 40 · Policía Nacional Escala Básica</p>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-8 text-sm mb-6">
-          <div className="flex items-center gap-2 text-gray-600">
+        <p className="text-gray-400 text-sm mt-2 mb-3">Promoción 40 · Policía Nacional Escala Básica</p>
+
+        {/* Línea decorativa */}
+        <div className="flex items-center justify-center gap-3 mb-5">
+          <div className="h-px w-12 bg-[#c9a84c]" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#c9a84c]" />
+          <div className="h-px w-12 bg-[#c9a84c]" />
+        </div>
+
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-8 text-sm mb-8">
+          <div className="flex items-center gap-2">
             <span className="text-[#c9a84c]">📅</span>
             <span className="font-semibold text-[#1a3a6b]">Sábado, 30 de mayo de 2026</span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-gray-200" />
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2">
             <span className="text-[#c9a84c]">📍</span>
             <span className="font-semibold text-[#1a3a6b]">Finca familiar · Gemuño, Ávila</span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-gray-200" />
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2">
             <span className="text-[#c9a84c]">🕐</span>
             <span className="font-semibold text-[#1a3a6b]">12:00h</span>
           </div>
         </div>
-        <ContadorInvitados />
+
+        {/* Contador protagonista */}
+        <div className="inline-block bg-[#1a3a6b] rounded-2xl px-8 py-5">
+          <ContadorInvitados />
+        </div>
       </section>
 
-      {/* RSVP */}
-      <div data-section="rsvp">
+      {/* RSVP con fondo y borde */}
+      <div data-section="rsvp" className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
         <RsvpForm />
       </div>
 
@@ -67,28 +78,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Galería */}
+      {/* Galería — fotos más grandes */}
       <section>
         <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-2">Galería</p>
         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a3a6b] mb-4">María</h2>
         <div className="grid grid-cols-2 gap-3">
           {fotos.map((src, i) => (
             <a key={i} href={src} target="_blank" rel="noopener noreferrer">
-              <img src={src} alt={`María ${i + 1}`} className="w-full h-44 sm:h-72 object-cover rounded-xl shadow hover:shadow-lg hover:scale-[1.01] transition-all duration-300 cursor-zoom-in" />
+              <img src={src} alt={`María ${i + 1}`} className="w-full h-56 sm:h-96 object-cover rounded-2xl shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 cursor-zoom-in" />
             </a>
           ))}
         </div>
       </section>
 
-      {/* Programa + Menú compactos en la misma fila */}
+      {/* Programa + Menú con iconos */}
       <div className="grid grid-cols-2 gap-4">
         <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
           <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-1">Programa</p>
           <h2 className="font-serif text-lg font-bold text-[#1a3a6b] mb-3">El día</h2>
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {agenda.map((item, i) => (
-              <div key={i} className="flex gap-2 items-start">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] flex-shrink-0 mt-1.5" />
+              <div key={i} className="flex gap-2.5 items-start">
+                <span className="text-base leading-none mt-0.5">{item.emoji}</span>
                 <div>
                   {item.hora && <p className="text-[#c9a84c] text-xs font-semibold">{item.hora}</p>}
                   <p className="text-xs text-gray-700">{item.titulo}</p>
@@ -101,10 +112,10 @@ export default function Home() {
         <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
           <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-1">Gastronomía</p>
           <h2 className="font-serif text-lg font-bold text-[#1a3a6b] mb-3">El menú</h2>
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {menu.map((cat) => (
-              <div key={cat.categoria} className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] flex-shrink-0 mt-1.5" />
+              <div key={cat.categoria} className="flex items-start gap-2.5">
+                <span className="text-base leading-none mt-0.5">{cat.emoji}</span>
                 <div>
                   <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold leading-tight">{cat.categoria}</p>
                   <p className="text-xs text-gray-700">{cat.item}</p>
@@ -115,26 +126,23 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Info */}
+      {/* Info en cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="text-center">
-          <div className="w-6 h-px bg-[#c9a84c] mx-auto mb-3" />
-          <h3 className="font-semibold text-[#1a3a6b] text-xs uppercase tracking-wide mb-1">Dress code</h3>
-          <p className="text-xs text-gray-500">Casual elegante. ¡Y no olvides el bañador!</p>
-        </div>
-        <div className="text-center">
-          <div className="w-6 h-px bg-[#c9a84c] mx-auto mb-3" />
-          <h3 className="font-semibold text-[#1a3a6b] text-xs uppercase tracking-wide mb-1">Aparcamiento</h3>
-          <p className="text-xs text-gray-500">Disponible en la finca.</p>
-        </div>
-        <div className="text-center">
-          <div className="w-6 h-px bg-[#c9a84c] mx-auto mb-3" />
-          <h3 className="font-semibold text-[#1a3a6b] text-xs uppercase tracking-wide mb-1">Ubicación</h3>
-          <a href="https://maps.app.goo.gl/XSDpEvBDrP2LtbAY7" target="_blank" rel="noopener noreferrer"
-            className="text-xs text-[#c9a84c] font-semibold hover:underline">
-            Ver en Google Maps →
-          </a>
-        </div>
+        {[
+          { emoji: '👗', titulo: 'Dress code', texto: 'Casual elegante. ¡Y no olvides el bañador!', link: null },
+          { emoji: '🚗', titulo: 'Aparcamiento', texto: 'Disponible en la finca.', link: null },
+          { emoji: '📍', titulo: 'Ubicación', texto: 'Ver en Google Maps →', link: 'https://maps.app.goo.gl/XSDpEvBDrP2LtbAY7' },
+        ].map(({ emoji, titulo, texto, link }) => (
+          <div key={titulo} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 text-center">
+            <div className="text-2xl mb-2">{emoji}</div>
+            <h3 className="font-semibold text-[#1a3a6b] text-xs uppercase tracking-wide mb-1">{titulo}</h3>
+            {link ? (
+              <a href={link} target="_blank" rel="noopener noreferrer" className="text-xs text-[#c9a84c] font-semibold hover:underline">{texto}</a>
+            ) : (
+              <p className="text-xs text-gray-500">{texto}</p>
+            )}
+          </div>
+        ))}
       </div>
 
     </div>
