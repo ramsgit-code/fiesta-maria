@@ -19,7 +19,7 @@ const menu = [
 
 const fotos = [
   'https://ytxpsbophwkqcsraptuy.supabase.co/storage/v1/object/public/media/foto1.jpeg',
-  'https://ytxpsbophwkqcsraptuy.supabase.co/storage/v1/object/public/media/foto2.jpeg',
+  'https://ytxpsbophwkqcsraptuy.supabase.co/storage/v1/object/public/media/foto3.jpeg',
 ]
 
 export default function Home() {
