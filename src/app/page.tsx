@@ -78,19 +78,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Galería — fotos más grandes */}
-      <section>
-        <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-2">Galería</p>
-        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a3a6b] mb-4">María</h2>
-        <div className="grid grid-cols-2 gap-3">
-          {fotos.map((src, i) => (
-            <a key={i} href={src} target="_blank" rel="noopener noreferrer">
-              <img src={src} alt={`María ${i + 1}`} className="w-full h-56 sm:h-96 object-cover rounded-2xl shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 cursor-zoom-in" />
-            </a>
-          ))}
-        </div>
-      </section>
-
       {/* Programa + Menú con iconos */}
       <div className="grid grid-cols-2 gap-4">
         <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
@@ -144,6 +131,19 @@ export default function Home() {
           </div>
         ))}
       </div>
+
+      {/* Galería — al final */}
+      <section>
+        <p className="text-[#c9a84c] text-xs font-semibold tracking-[0.2em] uppercase mb-2">Galería</p>
+        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a3a6b] mb-4">María</h2>
+        <div className="grid grid-cols-2 gap-3">
+          {fotos.map((src, i) => (
+            <a key={i} href={src} target="_blank" rel="noopener noreferrer">
+              <img src={src} alt={`María ${i + 1}`} className="w-full h-56 sm:h-96 object-cover rounded-2xl shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300 cursor-zoom-in" />
+            </a>
+          ))}
+        </div>
+      </section>
 
     </div>
   )
