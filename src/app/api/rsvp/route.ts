@@ -27,21 +27,25 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Error al guardar' }, { status: 500 })
   }
 
-  await transporter.sendMail({
-    from: FROM,
-    to: ADMIN_EMAIL,
-    subject: `🎉 Nueva confirmación — ${nombre.trim()}`,
-    html: `
-      <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #f8f5f0;">
-        <h2 style="color: #1a3a6b;">Nueva confirmación de asistencia</h2>
-        <hr style="border: none; border-top: 1px solid #e0d8cc; margin: 16px 0;" />
-        <p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Nombre:</strong> ${nombre.trim()}</p>
-        <p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Acompañantes:</strong> ${num_acompanantes || 0}</p>
-        ${bebida?.trim() ? `<p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Bebida:</strong> ${bebida.trim()}</p>` : ''}
-        ${comentario?.trim() ? `<p style="margin: 8px 0 0;"><strong style="color: #1a3a6b;">Nota:</strong> ${comentario.trim()}</p>` : ''}
-      </div>
-    `,
-  })
+  try {
+    await transporter.sendMail({
+      from: FROM,
+      to: ADMIN_EMAIL,
+      subject: `🎉 Nueva confirmación — ${nombre.trim()}`,
+      html: `
+        <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #f8f5f0;">
+          <h2 style="color: #1a3a6b;">Nueva confirmación de asistencia</h2>
+          <hr style="border: none; border-top: 1px solid #e0d8cc; margin: 16px 0;" />
+          <p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Nombre:</strong> ${nombre.trim()}</p>
+          <p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Acompañantes:</strong> ${num_acompanantes || 0}</p>
+          ${bebida?.trim() ? `<p style="margin: 0 0 4px;"><strong style="color: #1a3a6b;">Bebida:</strong> ${bebida.trim()}</p>` : ''}
+          ${comentario?.trim() ? `<p style="margin: 8px 0 0;"><strong style="color: #1a3a6b;">Nota:</strong> ${comentario.trim()}</p>` : ''}
+        </div>
+      `,
+    })
+  } catch (e) {
+    console.error('Email error:', e)
+  }
 
   return NextResponse.json({ ok: true })
 }
